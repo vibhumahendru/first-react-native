@@ -1,57 +1,93 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import FetchLocation from './components/FetchLocation'
+import {BUTTON_DATA_ONE, BUTTON_DATA_TWO} from './constants/button_stuff'
+import { Button } from 'react-native-elements';
+
+
 
 export default function App() {
 
-let getLocation = () =>{
-  console.log("sup");
+let countPlus = () =>{
+  setCount(count += 1)
+  console.log(BUTTON_DATA, "BUTTON_DATA");
 }
+// <Text style={styles.titleText} >count = {count} </Text>
+
+let [count, setCount] = useState(1)
+
   return (
-    <SafeAreaView style={styles.container}>
-    <View>
-      <Text style={styles.titleText} >app </Text>
-      <FetchLocation getLocation={getLocation}/>
+    <View style={styles.topContainer}>
+      <View style={styles.mainContainer}>
+        <View style={styles.container}>
+          {BUTTON_DATA_ONE.map((btn, idx) => {
+            return <Button
+                    key={idx}
+                    title=''
+                    onPress={countPlus}
+                    buttonStyle={{...styles.button, ...{backgroundColor:btn.color}}}
+                  />
+          })}
+
+        </View>
+        <View style={styles.container}>
+          {BUTTON_DATA_TWO.map((btn, idx) => {
+            return <Button
+                    key={idx}
+                    title=''
+                    onPress={countPlus}
+                    buttonStyle={{...styles.button, ...{backgroundColor:btn.color}}}
+                  />
+          })}
+
+        </View>
+      </View>
+      <Text style={styles.text}>hello</Text>
     </View>
-    </SafeAreaView>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   titleText: {
-//     fontSize: 40,
-//     fontWeight: 'bold',
-//   },
-//   baseText: {
-//     fontFamily: 'Cochin',
-//     marginVertical: 20,
-//   },
-// });
-
 const styles = StyleSheet.create({
+  topContainer:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'column'
+  },
+  mainContainer:{
+    flex: 2,
+    flexDirection:'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+
+  },
+  text:{
+    flex:1,
+    color:'#f35588',
+    fontSize: 40,
+    fontWeight: 'bold',
+    paddingTop: 50
+  },
   container: {
     flex: 1,
-    marginTop: 10,
-    marginHorizontal: 16,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    flexDirection:'column',
+    alignItems: 'center'
   },
-  title: {
-    textAlign: 'center',
-    marginVertical: 8,
+  titleText: {
+    fontSize: 40,
+    fontWeight: 'bold',
   },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  baseText: {
+    fontFamily: 'Cochin',
+    marginVertical: 20,
   },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+  button:{
+    margin:5,
+    borderRadius:50,
+    width:100,
+    height:100,
+  }
 });
